@@ -24,11 +24,6 @@ private TaskRepository taskRepository;
     }
 
     @Override
-    public List<Task> getTasksByUserId(String userId) {
-        return taskRepository.findByUserId(userId);
-    }
-
-    @Override
     public List<Task> getTasksByCategory(Long categoryId) {
         return taskRepository.findByCategory_Id(categoryId);
     }
@@ -63,7 +58,6 @@ private TaskRepository taskRepository;
             existingTask.setImportant(updatedTask.isImportant());
             existingTask.setCreatedAt(updatedTask.getCreatedAt());
             existingTask.setUpdatedAt(updatedTask.getUpdatedAt());
-            existingTask.setUserId(updatedTask.getUserId());
             existingTask.setCategory(updatedTask.getCategory());
             return taskRepository.save(existingTask);
         } else {
@@ -75,4 +69,14 @@ private TaskRepository taskRepository;
     public void deleteTask(Long taskId) {
         taskRepository.deleteById(taskId);
     }
+
+    @Override
+    public void deleteTasksByCategory(long id) {
+        List<Task> tasks = taskRepository.findByCategory_Id(id);
+        for (Task task : tasks) {
+            taskRepository.deleteById(task.getId());
+        }
+    }
+
+
 }

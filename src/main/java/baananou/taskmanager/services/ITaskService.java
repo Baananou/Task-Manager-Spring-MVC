@@ -10,8 +10,6 @@ public interface ITaskService {
 
     List<Task> getAllTasks();
 
-    List<Task> getTasksByUserId(String userId);
-
     List<Task> getTasksByCategory(Long categoryId);
 
     Task createTask(Task task);
@@ -20,4 +18,5 @@ public interface ITaskService {
 
     void deleteTask(Long taskId);
 
+    void deleteTasksByCategory(long id);
 }

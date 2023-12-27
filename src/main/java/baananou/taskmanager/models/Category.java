@@ -17,6 +17,7 @@ public class Category {
     @GeneratedValue
     private Long id;
     private String name;
+    private String description;
     @JsonIgnore
     @OneToMany(mappedBy = "category")
     public List<Task> tasks;

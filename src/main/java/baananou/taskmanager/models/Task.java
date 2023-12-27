@@ -35,10 +35,18 @@ public class Task {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @NotBlank(message = "User ID is required")
-    private String userId;
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
 
     @ManyToOne
+    @JoinColumn(name = "category_id") // Name of the foreign key column in the Task table
     @NotNull(message = "Category cannot be null")
     private Category category;
 

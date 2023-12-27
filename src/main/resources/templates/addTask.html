@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}">...</div>
+<div class="container mt-5">
+    <h2>Add New Task</h2>
+    <form th:action="@{/tasks/add}" th:object="${task}" method="post">
+        <div class="mb-3">
+            <label for="title" class="form-label">Title:</label>
+            <input type="text" class="form-control" id="title" required="required" placeholder="Enter Task Name" name="title" >
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description:</label>
+            <textarea class="form-control" id="description" name="description"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="date" class="form-label">Due Date:</label>
+            <input type="date" class="form-control" id="date" name="date" required="required">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" id="isCompleted" name="isCompleted"> Completed
+            </label>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" id="isImportant" name="isImportant"> Important
+            </label>
+        </div>
+
+        <div class="mb-3">
+            <label>Select Category</label>
+            <select class="form-control" name="category">
+                <option value="" disabled selected>Select a category</option>
+                <option th:each="category : ${categories}"
+                        th:value="${category.id}"
+                        th:text="${category.name}"></option>+
+            </select>
+        </div>
+        <!-- Hidden input fields for createdAt and updatedAt -->
+
+<!--        <input type="hidden" th:field="${task.createdAt}" />-->
+<!--        <input type="hidden" th:field="${task.updatedAt}" />-->
+        <input type="hidden" th:field="*{createdAt}" />
+        <input type="hidden" th:field="*{updatedAt}" />
+
+        <button type="submit" class="btn btn-primary mt-2">Add Task</button>
+    </form>
+</div>
+<div th:replace="~{fragments/footer :: footer}">...</div>
+</body>
+</html>

@@ -43,6 +43,7 @@ public class CategoryService implements ICategoryService {
         if (existingCategoryOptional.isPresent()) {
             Category existingCategory = existingCategoryOptional.get();
             existingCategory.setName(updatedCategory.getName());
+            existingCategory.setDescription(updatedCategory.getDescription());
             return categoryRepository.save(existingCategory);
         } else {
             throw new IllegalArgumentException("Category with ID " + categoryId + " not found");

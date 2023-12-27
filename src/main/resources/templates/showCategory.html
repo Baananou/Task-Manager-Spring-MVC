@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: header}">...</div>
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex gap-2">
+                <span th:text="${category.id}"></span>
+                <h5 class="card-title" th:text="${category.name}"></h5>
+            </div>
+            <p class="card-text" th:text="${category.description}"></p>
+
+            <!-- Delete Category Button -->
+            <a class="card-link btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal">Delete Category</a>
+            <!-- Edit Category Button -->
+            <a th:href="@{'/category/editForm/' + ${category.id}}" class="card-link btn btn-warning">Edit Category</a>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Category Modal -->
+<div class="modal fade" id="deleteCategoryModal" tabindex="-1" role="dialog" aria-labelledby="deleteCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteCategoryModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h3 class="text-danger">Warning!</h3>
+                <h4>Deleting this Category will
+                    <span>
+                        <strong class="text-capitalize">delete all the tasks</strong>
+                    </span> associated with it.
+                </span>
+                </h4>
+                <h5>Are you sure you want to delete this category?</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <!-- Delete Category Button -->
+                <a th:href="@{'/category/delete/' + ${category.id}}" class="btn btn-danger">Yes, Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}">...</div>
+
+<!-- Bootstrap JavaScript and Popper.js -->
+<script src="/webjars/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
